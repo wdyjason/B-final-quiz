@@ -54,4 +54,16 @@ class TrainerApiTest {
                     .andExpect(status().isCreated());
         }
     }
+
+    @Nested
+    class sadPath {
+
+        @Test
+        public void should_create_failed_when_trainer_name_not_exists() throws Exception {
+            String postTrainer = "{\"name\":\"\"}";
+
+            mockMvc.perform(post("/trainers").content(postTrainer).contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        }
+    }
 }

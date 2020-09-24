@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 
@@ -16,7 +17,7 @@ public class TrainerDto {
 
     private Long id;
 
-    @NotNull(message = "trainer name not null")
+    @NotBlank(message = "trainer name not null")
     private String name;
 
 }

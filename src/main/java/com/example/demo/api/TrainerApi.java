@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static com.example.demo.utils.Domain2Dto.toDto;
@@ -20,7 +21,7 @@ public class TrainerApi {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TrainerDto createTrainer(@RequestBody TrainerDto trainer) {
+    public TrainerDto createTrainer(@RequestBody @Valid TrainerDto trainer) {
         return toDto(trainerService.createTrainer(toDomain(trainer)));
     }
 
