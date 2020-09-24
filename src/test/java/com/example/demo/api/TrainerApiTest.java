@@ -80,5 +80,11 @@ class TrainerApiTest {
             mockMvc.perform(post("/trainers").content(postTrainer).contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
         }
+
+        @Test
+        public void should_get_trainers_failed_when_grouped_is_null() throws Exception {
+            mockMvc.perform(get("/trainers"))
+                    .andExpect(status().isBadRequest());
+        }
     }
 }
