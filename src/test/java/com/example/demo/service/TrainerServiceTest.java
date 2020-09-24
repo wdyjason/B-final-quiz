@@ -67,12 +67,12 @@ class TrainerServiceTest {
     class sadPath {
 
         @Test
-        public void should_throw_not_support_operation_exception_when_require_all_is_true() {
+        public void should_throw_not_support_operation_exception_when_grouped_is_true() {
             assertThrows(NotSupportOperationException.class, () -> {trainerService.getTrainers(true);}); //
         }
 
         @Test
-        public void should_throw_null_pointer_operation_exception_when_require_all_is_null() {
+        public void should_throw_null_pointer_operation_exception_when_grouped_is_null() {
             assertThrows(NullPointerException.class, () -> {trainerService.getTrainers(null);}); //
         }
     }

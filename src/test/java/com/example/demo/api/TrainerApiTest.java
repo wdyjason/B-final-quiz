@@ -1,7 +1,9 @@
 package com.example.demo.api;
 
 import com.example.demo.domain.Trainer;
+import com.example.demo.entity.TrainerEntity;
 import com.example.demo.repository.TrainerRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -40,6 +42,12 @@ class TrainerApiTest {
     @BeforeEach
     public void setUp() {
         trainerRepository.deleteAll();
+        trainerRepository.save(new TrainerEntity(1L, "old", 0L));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        trainerRepository.deleteAll();
     }
 
     @Nested
@@ -51,6 +59,13 @@ class TrainerApiTest {
 
             mockMvc.perform(post("/trainers").content(postTrainer).contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.name", is("trainer")))
+                    .andExpect(status().isCreated());
+        }
+
+        @Test
+        public void should_get_trainers_success() throws Exception {
+            mockMvc.perform(post("/trainers/?grouped=false"))
+                    .andExpect(jsonPath("$[0].name", is("trainer")))
                     .andExpect(status().isCreated());
         }
     }

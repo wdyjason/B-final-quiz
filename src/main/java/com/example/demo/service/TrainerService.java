@@ -29,9 +29,9 @@ public class TrainerService {
         return toDomain(saved);
     }
 
-    public List<Trainer> getTrainers(Boolean requireAll) throws NotSupportOperationException {
+    public List<Trainer> getTrainers(Boolean grouped) throws NotSupportOperationException {
 
-        if (!requireAll) {
+        if (!grouped) {
             return trainerRepository.findByGroupId(0L).stream()
                     .map(Entity2Domain::toDomain)
                     .collect(Collectors.toList());
