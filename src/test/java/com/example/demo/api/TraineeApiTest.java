@@ -38,7 +38,7 @@ class TraineeApiTest {
     @BeforeEach
     public void setUp() {
         traineeRepository.deleteAll();
-        traineeRepository.save(new TraineeEntity(1L, "n", "o", "e", "g", "z",0L));
+        traineeRepository.save(new TraineeEntity(1L, "n", "o", "e@qq.com", "g", "z",0L));
     }
 
     @AfterEach
@@ -52,12 +52,12 @@ class TraineeApiTest {
 
         @Test
         public void should_create_a_trainee_success() throws Exception {
-            String postTrainee = "{\"name\":\"trainee\", \"office\":\"o\", \"email\":\"e\", \"github\":\"g\", \"zoomId\":\"z\"}";
+            String postTrainee = "{\"name\":\"trainee\", \"office\":\"o\", \"email\":\"e@qq.com\", \"github\":\"g\", \"zoomId\":\"z\"}";
 
             mockMvc.perform(post("/trainees").content(postTrainee).contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.name", is("trainee")))
                     .andExpect(jsonPath("$.office", is("o")))
-                    .andExpect(jsonPath("$.email", is("e")))
+                    .andExpect(jsonPath("$.email", is("e@qq.com")))
                     .andExpect(jsonPath("$.github", is("g")))
                     .andExpect(jsonPath("$.zoomId", is("z")))
                     .andExpect(status().isCreated());
@@ -68,12 +68,31 @@ class TraineeApiTest {
             mockMvc.perform(get("/trainees/?grouped=false"))
                     .andExpect(jsonPath("$[0].name", is("n")))
                     .andExpect(jsonPath("$[0].office", is("o")))
-                    .andExpect(jsonPath("$[0].email", is("e")))
+                    .andExpect(jsonPath("$[0].email", is("e@qq.com")))
                     .andExpect(jsonPath("$[0].github", is("g")))
                     .andExpect(jsonPath("$[0].zoomId", is("z")))
                     .andExpect(status().isOk());
         }
     }
 
+    @Nested
+    class sadPath {
+
+        @Test
+        public void should_create_failed_when_trainees_validate_fail() throws Exception {
+            String postTrainee = "{\"name\":\"\"}";
+
+            mockMvc.perform(post("/trainees").content(postTrainee).contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        public void should_create_failed_when_email_validate_fail() throws Exception {
+            String postTrainee = "{\"name\":\"trainee\", \"office\":\"o\", \"email\":\"ee\", \"github\":\"g\", \"zoomId\":\"z\"}";
+
+            mockMvc.perform(post("/trainees").content(postTrainee).contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        }
+    }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,7 @@ public class TraineeApi {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TraineeDto createTrainee(@RequestBody TraineeDto trainee) {
+    public TraineeDto createTrainee(@RequestBody @Valid TraineeDto trainee) {
         return toDto(traineeService.createTrainee(toDomain(trainee)));
     }
 
