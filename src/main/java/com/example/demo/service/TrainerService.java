@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Trainer;
 import com.example.demo.entity.TrainerEntity;
+import com.example.demo.exception.NotSupportOperationException;
 import com.example.demo.repository.TrainerRepository;
 import com.example.demo.utils.Entity2Domain;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,14 @@ public class TrainerService {
         return toDomain(saved);
     }
 
-    public List<Trainer> getTrainers(Boolean requireAll) {
-        return trainerRepository.findByGroupId(0L).stream()
-                .map(Entity2Domain::toDomain)
-                .collect(Collectors.toList());
+    public List<Trainer> getTrainers(Boolean requireAll) throws NotSupportOperationException {
+
+        if (!requireAll) {
+            return trainerRepository.findByGroupId(0L).stream()
+                    .map(Entity2Domain::toDomain)
+                    .collect(Collectors.toList());
+        }
+
+        throw new NotSupportOperationException("Not Supported operation!");
     }
 }

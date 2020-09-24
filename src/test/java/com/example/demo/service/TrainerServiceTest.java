@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Trainer;
 import com.example.demo.entity.TrainerEntity;
+import com.example.demo.exception.NotSupportOperationException;
 import com.example.demo.repository.TrainerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class TrainerServiceTest {
@@ -48,7 +50,7 @@ class TrainerServiceTest {
         }
 
         @Test
-        public void should_get_trainers_success() {
+        public void should_get_trainers_success() throws NotSupportOperationException {
             TrainerEntity toReturnTrainerEntity = TrainerEntity.builder().id(1L).name("trainer").build();
 
             Trainer expectTrainer = Trainer.builder().id(1L).name("trainer").build();
@@ -58,6 +60,20 @@ class TrainerServiceTest {
             List<Trainer> result = trainerService.getTrainers(false);
 
             assertEquals(Arrays.asList(expectTrainer), result);
+        }
+    }
+
+    @Nested
+    class sadPath {
+
+        @Test
+        public void should_throw_not_support_operation_exception_when_require_all_is_true() {
+            assertThrows(NotSupportOperationException.class, () -> {trainerService.getTrainers(true);}); //
+        }
+
+        @Test
+        public void should_throw_null_pointer_operation_exception_when_require_all_is_null() {
+            assertThrows(NullPointerException.class, () -> {trainerService.getTrainers(null);}); //
         }
     }
 }
