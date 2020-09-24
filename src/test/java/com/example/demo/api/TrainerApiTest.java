@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -64,9 +64,9 @@ class TrainerApiTest {
 
         @Test
         public void should_get_trainers_success() throws Exception {
-            mockMvc.perform(post("/trainers/?grouped=false"))
-                    .andExpect(jsonPath("$[0].name", is("trainer")))
-                    .andExpect(status().isCreated());
+            mockMvc.perform(get("/trainers/?grouped=false"))
+                    .andExpect(jsonPath("$[0].name", is("old")))
+                    .andExpect(status().isOk());
         }
     }
 
