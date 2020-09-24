@@ -43,7 +43,7 @@ class TrainerServiceTest {
 
             when(trainerRepository.save(toSaveTrainerEntity)).thenReturn(toReturnTrainerEntity);
 
-            Trainer result = trainerService.createTrainer(trainer);
+            Trainer result = trainerService.saveTrainer(trainer);
 
             assertEquals(expectTrainer, result);
 
@@ -58,6 +58,19 @@ class TrainerServiceTest {
             when(trainerRepository.findByGroupId(0L)).thenReturn(Arrays.asList(toReturnTrainerEntity));
 
             List<Trainer> result = trainerService.getTrainers(false);
+
+            assertEquals(Arrays.asList(expectTrainer), result);
+        }
+
+        @Test
+        public void should_get_All_trainers_success() throws NotSupportOperationException {
+            TrainerEntity toReturnTrainerEntity = TrainerEntity.builder().id(1L).name("trainer").build();
+
+            Trainer expectTrainer = Trainer.builder().id(1L).name("trainer").build();
+
+            when(trainerRepository.findAll()).thenReturn(Arrays.asList(toReturnTrainerEntity));
+
+            List<Trainer> result = trainerService.getAllTrainers();
 
             assertEquals(Arrays.asList(expectTrainer), result);
         }

@@ -21,13 +21,19 @@ public class TraineeService {
         this.traineeRepository = traineeRepository;
     }
 
-    public Trainee createTrainee(Trainee trainee) {
+    public Trainee saveTrainee(Trainee trainee) {
         TraineeEntity saved = traineeRepository.save(toEntity(trainee));
         return toDomain(saved);
     }
 
     public List<Trainee> getTrainees(Boolean grouped) {
         return traineeRepository.findByGroupId(0L).stream()
+                .map(Entity2Domain :: toDomain)
+                .collect(Collectors.toList());
+    }
+
+    public List<Trainee> getAllTrainees() {
+        return traineeRepository.findAll().stream()
                 .map(Entity2Domain :: toDomain)
                 .collect(Collectors.toList());
     }

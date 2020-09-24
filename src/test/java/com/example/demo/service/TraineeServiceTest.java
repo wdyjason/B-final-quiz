@@ -70,7 +70,7 @@ class TraineeServiceTest {
 
             when(traineeRepository.save(toSaveTraineeEntity)).thenReturn(toReturnTraineeEntity);
 
-            Trainee result = traineeService.createTrainee(trainee);
+            Trainee result = traineeService.saveTrainee(trainee);
 
             assertEquals(expectTrainee, result);
 

@@ -8,5 +8,8 @@ import java.util.List;
 
 @Repository
 public interface TrainerRepository extends CrudRepository<TrainerEntity, Long> {
+
     List<TrainerEntity> findByGroupId(long groupId);
+
+    List<TrainerEntity> findAll();
 }

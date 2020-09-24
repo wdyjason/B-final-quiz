@@ -24,7 +24,7 @@ public class TrainerService {
         this.trainerRepository = trainerRepository;
     }
 
-    public Trainer createTrainer(Trainer trainer) {
+    public Trainer saveTrainer(Trainer trainer) {
         TrainerEntity saved = trainerRepository.save(toEntity(trainer));
         return toDomain(saved);
     }
@@ -38,5 +38,11 @@ public class TrainerService {
         }
 
         throw new NotSupportOperationException("Not Supported operation!");
+    }
+
+    public List<Trainer> getAllTrainers() {
+        return trainerRepository.findAll().stream()
+                .map(Entity2Domain::toDomain)
+                .collect(Collectors.toList());
     }
 }

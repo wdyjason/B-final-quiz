@@ -34,4 +34,11 @@ public class GlobalExceptionHandle {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(returnError);
     }
 
+    @ExceptionHandler(ItemsNotEnoughException.class)
+    public ResponseEntity itemsNotEnoughExceptionHandle(Exception ex) {
+        CommonError returnError =
+                new CommonError(new Date(), "not found item", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(returnError);
+    }
+
 }

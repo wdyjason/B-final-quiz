@@ -24,7 +24,7 @@ public class TraineeApi {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TraineeDto createTrainee(@RequestBody @Valid TraineeDto trainee) {
-        return toDto(traineeService.createTrainee(toDomain(trainee)));
+        return toDto(traineeService.saveTrainee(toDomain(trainee)));
     }
 
     @GetMapping

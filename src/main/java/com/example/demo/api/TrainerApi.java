@@ -25,7 +25,7 @@ public class TrainerApi {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TrainerDto createTrainer(@RequestBody @Valid TrainerDto trainer) {
-        return toDto(trainerService.createTrainer(toDomain(trainer)));
+        return toDto(trainerService.saveTrainer(toDomain(trainer)));
     }
 
     @GetMapping
