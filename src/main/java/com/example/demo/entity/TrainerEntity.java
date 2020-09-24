@@ -14,9 +14,14 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class TraineeEntity {
+public class TrainerEntity {
 
     @Id
     @GeneratedValue
     private Long id;
+
+    private String name;
+
+    @Builder.Default
+    private Long groupId = 0L;
 }

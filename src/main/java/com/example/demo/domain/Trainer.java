@@ -1,16 +1,21 @@
-package com.example.demo.entity;
+package com.example.demo.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class TeacherEntity {
+public class Trainer {
+
+    private Long id;
+
+    private String name;
+
+    @Builder.Default
+    private Long groupId = 0L;
 }
