@@ -10,6 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +33,7 @@ class TraineeServiceTest {
     class happyPath {
 
         @Test
-        public void should_create_a_student_success() {
+        public void should_create_a_trainee_success() {
             Trainee trainee = Trainee.builder()
                     .name("test")
                     .email("e")
@@ -71,6 +74,35 @@ class TraineeServiceTest {
 
             assertEquals(expectTrainee, result);
 
+        }
+
+        @Test
+        public void should_get_trainee_success() {
+            TraineeEntity toReturnTraineeEntity = TraineeEntity.builder()
+                    .id(1L)
+                    .name("test")
+                    .email("e")
+                    .github("g")
+                    .zoomId("z")
+                    .office("o")
+                    .groupId(0L)
+                    .build();
+
+            Trainee expectTrainee = Trainee.builder()
+                    .id(1L)
+                    .name("test")
+                    .email("e")
+                    .github("g")
+                    .zoomId("z")
+                    .office("o")
+                    .groupId(0L)
+                    .build();
+
+            when(traineeRepository.findByGroupId(0L)).thenReturn(Arrays.asList(toReturnTraineeEntity));
+
+            List<Trainee> result = traineeService.getTrainees(false);
+
+            assertEquals(Arrays.asList(expectTrainee), result);
         }
     }
 
