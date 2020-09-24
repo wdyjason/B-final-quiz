@@ -19,6 +19,4 @@ public class TrainerDto {
     @NotNull(message = "trainer name not null")
     private String name;
 
-    @Builder.Default
-    private Long groupId = 0L;
 }
