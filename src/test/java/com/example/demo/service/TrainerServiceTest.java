@@ -10,6 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -42,6 +45,19 @@ class TrainerServiceTest {
 
             assertEquals(expectTrainer, result);
 
+        }
+
+        @Test
+        public void should_get_trainers_success() {
+            TrainerEntity toReturnTrainerEntity = TrainerEntity.builder().id(1L).name("trainer").build();
+
+            Trainer expectTrainer = Trainer.builder().id(1L).name("trainer").build();
+
+            when(trainerRepository.findByGroupId(0L)).thenReturn(Arrays.asList(toReturnTrainerEntity));
+
+            List<Trainer> result = trainerService.getTrainers(false);
+
+            assertEquals(Arrays.asList(expectTrainer), result);
         }
     }
 }
