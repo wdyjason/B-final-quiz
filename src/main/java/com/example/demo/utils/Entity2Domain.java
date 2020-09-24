@@ -1,7 +1,9 @@
 package com.example.demo.utils;
 
+import com.example.demo.domain.Group;
 import com.example.demo.domain.Trainee;
 import com.example.demo.domain.Trainer;
+import com.example.demo.entity.GroupEntity;
 import com.example.demo.entity.TraineeEntity;
 import com.example.demo.entity.TrainerEntity;
 
@@ -24,6 +26,13 @@ public class Entity2Domain {
                 .github(entity.getGithub())
                 .office(entity.getOffice())
                 .zoomId(entity.getZoomId())
+                .build();
+    }
+
+    public static Group toDomain(GroupEntity entity){
+        return Group.builder()
+                .id(entity.getId())
+                .name(entity.getName())
                 .build();
     }
 }
