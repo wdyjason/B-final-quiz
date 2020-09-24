@@ -57,7 +57,7 @@ class TrainerServiceTest {
 
             when(trainerRepository.findByGroupId(0L)).thenReturn(Arrays.asList(toReturnTrainerEntity));
 
-            List<Trainer> result = trainerService.getTrainers(false);
+            List<Trainer> result = trainerService.getTrainers(false, 0L);
 
             assertEquals(Arrays.asList(expectTrainer), result);
         }
@@ -80,13 +80,8 @@ class TrainerServiceTest {
     class sadPath {
 
         @Test
-        public void should_throw_not_support_operation_exception_when_grouped_is_true() {
-            assertThrows(NotSupportOperationException.class, () -> {trainerService.getTrainers(true);}); //
-        }
-
-        @Test
         public void should_throw_null_pointer_operation_exception_when_grouped_is_null() {
-            assertThrows(NullPointerException.class, () -> {trainerService.getTrainers(null);}); //
+            assertThrows(NullPointerException.class, () -> {trainerService.getTrainers(null, null);}); //
         }
     }
 }

@@ -26,8 +26,15 @@ public class TraineeService {
         return toDomain(saved);
     }
 
-    public List<Trainee> getTrainees(Boolean grouped) {
-        return traineeRepository.findByGroupId(0L).stream()
+    public List<Trainee> getTrainees(Boolean grouped, Long groupId) {
+
+        if (!grouped) {
+            return traineeRepository.findByGroupId(0L).stream()
+                    .map(Entity2Domain :: toDomain)
+                    .collect(Collectors.toList());
+        }
+
+        return traineeRepository.findByGroupId(groupId).stream()
                 .map(Entity2Domain :: toDomain)
                 .collect(Collectors.toList());
     }

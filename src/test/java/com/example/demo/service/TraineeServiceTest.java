@@ -100,7 +100,7 @@ class TraineeServiceTest {
 
             when(traineeRepository.findByGroupId(0L)).thenReturn(Arrays.asList(toReturnTraineeEntity));
 
-            List<Trainee> result = traineeService.getTrainees(false);
+            List<Trainee> result = traineeService.getTrainees(false, 0L);
 
             assertEquals(Arrays.asList(expectTrainee), result);
         }

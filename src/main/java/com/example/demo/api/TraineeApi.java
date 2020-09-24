@@ -29,7 +29,7 @@ public class TraineeApi {
 
     @GetMapping
     public List<TraineeDto> getTrainees(@RequestParam Boolean grouped) {
-        return traineeService.getTrainees(grouped).stream()
+        return traineeService.getTrainees(grouped, 0L).stream()
                 .map(Domain2Dto::toDto)
                 .collect(Collectors.toList());
     }

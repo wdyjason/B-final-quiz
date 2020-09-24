@@ -30,7 +30,7 @@ public class TrainerApi {
 
     @GetMapping
     public List<TrainerDto> getTrainer(@RequestParam Boolean grouped) throws NotSupportOperationException {
-        return trainerService.getTrainers(grouped).stream()
+        return trainerService.getTrainers(grouped, 0L).stream()
                 .map(Domain2Dto::toDto)
                 .collect(Collectors.toList());
     }

@@ -29,10 +29,16 @@ public class TrainerService {
         return toDomain(saved);
     }
 
-    public List<Trainer> getTrainers(Boolean grouped) throws NotSupportOperationException {
+    public List<Trainer> getTrainers(Boolean grouped, Long groupId) throws NotSupportOperationException {
 
         if (!grouped) {
             return trainerRepository.findByGroupId(0L).stream()
+                    .map(Entity2Domain::toDomain)
+                    .collect(Collectors.toList());
+        }
+
+        if (grouped) {
+            return trainerRepository.findByGroupId(groupId).stream()
                     .map(Entity2Domain::toDomain)
                     .collect(Collectors.toList());
         }
