@@ -90,7 +90,7 @@ public class GroupService {
     }
 
     private List<GroupDto> initGroups(int groupCount) {
-
+        groupRepository.deleteAll();
         List<GroupDto> groups = new ArrayList<>();
         for (int i = 0; i < groupCount; i++) {
             Group saved =  toDomain(groupRepository.save(GroupEntity.builder().name((i + 1) + "组").build()));
