@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -60,6 +61,17 @@ class TraineeApiTest {
                     .andExpect(jsonPath("$.github", is("g")))
                     .andExpect(jsonPath("$.zoomId", is("z")))
                     .andExpect(status().isCreated());
+        }
+
+        @Test
+        public void should_get_trainees_success() throws Exception {
+            mockMvc.perform(get("/trainees/?grouped=false"))
+                    .andExpect(jsonPath("$[0].name", is("n")))
+                    .andExpect(jsonPath("$[0].office", is("o")))
+                    .andExpect(jsonPath("$[0].email", is("e")))
+                    .andExpect(jsonPath("$[0].github", is("g")))
+                    .andExpect(jsonPath("$[0].zoomId", is("z")))
+                    .andExpect(status().isOk());
         }
     }
 
