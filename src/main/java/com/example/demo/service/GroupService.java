@@ -102,6 +102,8 @@ public class GroupService {
     private void addTrainersToGroups(List<GroupDto> groups, List<Trainer> trainers) {
         Collections.shuffle(trainers);
         if (trainers.size() % 2 != 0) {
+            trainers.get(0).setGroupId(0L);
+            trainerService.saveTrainer(trainers.get(0));
             trainers.remove(0);
         }
         int groupIndex = 0;
