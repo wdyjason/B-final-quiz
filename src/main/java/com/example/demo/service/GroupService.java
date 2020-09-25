@@ -54,6 +54,7 @@ public class GroupService {
                     .map(Domain2Dto::toDto)
                     .collect(Collectors.toList());
 
+            // GTB: - 没有使用@OneToMany注解处理一对多关系
             List<TraineeDto> trainees = traineeService.getTrainees(true, groupId).stream()
                     .map(Domain2Dto::toDto)
                     .collect(Collectors.toList());
@@ -69,6 +70,7 @@ public class GroupService {
     public List<GroupDto> autoGrouping() throws ItemsNotEnoughException {
         List<Trainer> allTrainers = trainerService.getAllTrainers();
 
+        // GTB: - magic number
         if (allTrainers.size() <= 1) {
             throw new ItemsNotEnoughException("trainers not enough!");
         }
@@ -79,6 +81,7 @@ public class GroupService {
             throw new ItemsNotEnoughException("trainees not enough!");
         }
 
+        // GTB: - magic number
         int groupCount = allTrainers.size() / 2;
         List<GroupDto> groups = initGroups(groupCount);
 
@@ -92,6 +95,7 @@ public class GroupService {
     private List<GroupDto> initGroups(int groupCount) {
         groupRepository.deleteAll();
         List<GroupDto> groups = new ArrayList<>();
+        // GTB: - 可以使用Java8 Stream简化代码
         for (int i = 0; i < groupCount; i++) {
             Group saved =  toDomain(groupRepository.save(GroupEntity.builder().name((i + 1) + "组").build()));
             groups.add(toDto(saved));

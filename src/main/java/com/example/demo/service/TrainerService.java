@@ -37,6 +37,7 @@ public class TrainerService {
                     .collect(Collectors.toList());
         }
 
+        // GTB: - 多余的if语句
         if (grouped) {
             return trainerRepository.findByGroupId(groupId).stream()
                     .map(Entity2Domain::toDomain)

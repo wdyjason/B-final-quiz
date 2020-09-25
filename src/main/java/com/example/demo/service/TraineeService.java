@@ -26,9 +26,11 @@ public class TraineeService {
         return toDomain(saved);
     }
 
+    // GTB: - 此处groupId参数没有意义
     public List<Trainee> getTrainees(Boolean grouped, Long groupId) {
 
         if (!grouped) {
+            // GTB: - 将未分组的组Id设置为0不太好，最好为null
             return traineeRepository.findByGroupId(0L).stream()
                     .map(Entity2Domain :: toDomain)
                     .collect(Collectors.toList());

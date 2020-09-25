@@ -14,6 +14,7 @@ import java.util.List;
 public class GroupApi {
 
     @Autowired
+    // GTB: - 推荐使用构造器注入
     private GroupService groupService;
 
     @PostMapping("/auto-grouping")

@@ -19,6 +19,7 @@ import static com.example.demo.utils.Dto2Domain.toDomain;
 public class TraineeApi {
 
     @Autowired
+    // GTB: - 推荐使用构造器注入
     private TraineeService traineeService;
 
     @PostMapping
@@ -28,6 +29,7 @@ public class TraineeApi {
     }
 
     @GetMapping
+    // GTB: - @RequestParam应该显式写明value属性
     public List<TraineeDto> getTrainees(@RequestParam Boolean grouped) {
         return traineeService.getTrainees(grouped, 0L).stream()
                 .map(Domain2Dto::toDto)
@@ -35,6 +37,7 @@ public class TraineeApi {
     }
 
     @DeleteMapping("/{id}")
+    // GTB: - @PathVariable应该显式写明value属性
     public void deleteTrainee(@PathVariable Long id) {
     }
 
